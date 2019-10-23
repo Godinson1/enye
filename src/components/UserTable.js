@@ -8,9 +8,7 @@ export default () => {
 
     return (
         <div>
-            {details.map((row, index) => (
-               <div key={index}>
-                   <Table bordered striped hover responsive variant="dark">
+            <Table bordered striped hover responsive variant="dark">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -20,7 +18,8 @@ export default () => {
                             <th>Age</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {details.map((row, index) => (
+                    <tbody key={index}>
                     <tr>
                         <td>{row.fname}</td>
                         <td>{row.lname}</td>
@@ -29,9 +28,8 @@ export default () => {
                         <td>{row.age}</td>
                      </tr>
                     </tbody>
-                </Table>
-               </div> 
-            ))}
+                     ))}
+             </Table> 
         </div>
     );
 }
