@@ -2,26 +2,21 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import { Form, Icon, Input, Button } from 'antd';
 import { DatePicker } from 'antd';
-import  "react-datepicker/dist/react-datepicker.css";
+import { connect } from 'react-redux';
+import { addDetails } from '../actions/userAction';
+import { bindActionCreators } from 'redux';
+
 
 
 class UserForm extends Component {
 
-    state = {
-          fname: '',
-          lname: '',
-          hobby: '',
-          age: '',
-          dob: ''
-    }
     
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+         this.state = values
       if (!err) {
-        this.state = values
-        this.props.addForm(this.state);
-        this.setState({fname: '', lname: '',  hobby: '', age: '',  dob: '' });
+        this.props.addDetails(this.state);
       }
     });
   };
@@ -67,7 +62,7 @@ class UserForm extends Component {
         {getFieldDecorator('dob', {
             rules: [{ required: true, message: 'Please input your Date of Birth!' }],
           })(
-        <DatePicker size="large" onChange={this.handleChange} selected={this.state.dob} placeholder="Date of Birth"/>
+        <DatePicker size="large" onChange={this.handleChange}  placeholder="Date of Birth"/>
         )}
         </Form.Item>
         <Form.Item>
@@ -86,17 +81,19 @@ class UserForm extends Component {
           </Button>
         </Form.Item>
       </Form>
-      
       </div>
       
     );
   }
 }
 
+function matchDispatchToProps (dispatch) {
+  bindActionCreators({addDetails: addDetails}, dispatch);
+}
 
 
 const WrappedUserForm = Form.create({ name: 'user-form' })(UserForm);
 
 ReactDOM.render(<WrappedUserForm />, document.getElementById('root'));
 
-export default WrappedUserForm
+export default connect(matchDispatchToProps, { addDetails })(WrappedUserForm)
