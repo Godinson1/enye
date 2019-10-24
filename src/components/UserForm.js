@@ -87,7 +87,7 @@ class UserForm extends Component {
   }
 }
 
-function matchDispatchToProps (dispatch) {
+function mapDispatchToProps (dispatch) {
   bindActionCreators({addDetails: addDetails}, dispatch);
 }
 
@@ -96,4 +96,4 @@ const WrappedUserForm = Form.create({ name: 'user-form' })(UserForm);
 
 ReactDOM.render(<WrappedUserForm />, document.getElementById('root'));
 
-export default connect(matchDispatchToProps, { addDetails })(WrappedUserForm)
+export default connect(mapDispatchToProps, { addDetails })(WrappedUserForm)
