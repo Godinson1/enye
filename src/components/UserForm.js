@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import { Form, Icon, Input, Button } from 'antd';
 import { DatePicker } from 'antd';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { insert } from '../firebase';
+import axios from 'axios';
 
 
 
@@ -25,7 +23,14 @@ class UserForm extends Component {
             dob: moment(this.state.dob).format('YYYY-MM-DD').toString(),
             age: this.state.age
           }
-        this.props.insert(details);
+      axios.post('https://us-central1-joseph-enye.cloudfunctions.net/addmessage', details)
+        .then(res => {
+            // here will be code
+        })
+        .catch(error => {
+            console.log(error);
+        });   
+       // this.props.insert(details);
       }
     });
   };
@@ -96,13 +101,10 @@ class UserForm extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  bindActionCreators({insert: insert}, dispatch);
-}
 
 
 const WrappedUserForm = Form.create({ name: 'user-form' })(UserForm);
 
 ReactDOM.render(<WrappedUserForm />, document.getElementById('root'));
 
-export default connect(mapDispatchToProps, { insert })(WrappedUserForm)
+export default WrappedUserForm
