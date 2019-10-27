@@ -5,29 +5,25 @@ import {database} from './firebase';
 
 
 
+function* startListener() {
+  
+  const channel = new eventChannel(emiter => {
+    const listener = database.ref("users").on("value", snapshot => {
+      emiter({ data: snapshot.val() || {} });
+    });
 
-function createEventChannel() {
-    const listener = eventChannel(
-        emit => {
-            database.ref('users')
-            .on('child_added', data => emit(data.val()));
-return () => database.ref('users').off(listener);
-        }
-    );
-    
-    return listener;
-};
 
-function* updatedItemSaga() {
-    const updateChannel = createEventChannel();
-    while(true) {
-        const data = yield take(updateChannel);
-        yield put(update(data));
-    }
+    return () => {
+      listener.off();
+    };
+  });
+
+  while (true) {
+    const { data } = yield take(channel);
+    yield put(update(data));
+  }
 }
 
-
-
-export default function* rootSaga() {
-    yield fork(updatedItemSaga);
+export default function* root() {
+  yield fork(startListener);
 }
