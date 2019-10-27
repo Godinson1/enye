@@ -5,7 +5,7 @@ import { DatePicker } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { handleRequest } from '../magas';
+import { handleRequest } from '../sagas';
 
 
 
