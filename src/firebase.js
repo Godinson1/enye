@@ -15,7 +15,7 @@ const config = {
 firebase.initializeApp(config);
 export const database = firebase.database();
 
-export const insert = item => {
-    const newItemRef = database.ref('users').push();
-    return newItemRef.set(item);
+export const insert = details => {
+    const userRef = database.ref('users').push();
+    return userRef.set(details);
 }
