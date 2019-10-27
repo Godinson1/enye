@@ -3,20 +3,29 @@ import ReactDOM from 'react-dom';
 import { Form, Icon, Input, Button } from 'antd';
 import { DatePicker } from 'antd';
 import { connect } from 'react-redux';
-import { addDetails } from '../actions/userAction';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
+import { insert } from '../firebase';
+
 
 
 
 class UserForm extends Component {
 
-    
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
          this.state = values
       if (!err) {
-        this.props.addDetails(this.state);
+          const details = {
+            fname: this.state.fname,
+            lname: this.state.lname,
+            hobby: this.state.hobby,
+            dob: moment(this.state.dob).format('YYYY-MM-DD').toString(),
+            age: this.state.age
+          }
+        this.props.insert(details);
       }
     });
   };
@@ -87,8 +96,8 @@ class UserForm extends Component {
   }
 }
 
-function matchDispatchToProps (dispatch) {
-  bindActionCreators({addDetails: addDetails}, dispatch);
+function mapDispatchToProps (dispatch) {
+  bindActionCreators({insert: insert}, dispatch);
 }
 
 
@@ -96,4 +105,4 @@ const WrappedUserForm = Form.create({ name: 'user-form' })(UserForm);
 
 ReactDOM.render(<WrappedUserForm />, document.getElementById('root'));
 
-export default connect(matchDispatchToProps, { addDetails })(WrappedUserForm)
+export default connect(mapDispatchToProps, { insert })(WrappedUserForm)

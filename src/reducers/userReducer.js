@@ -1,4 +1,4 @@
-import { ADD_USER_DETAILS } from '../actions/type';
+import { UPDATED } from '../actions/type.js';
 
 const initialState = {
     details: []
@@ -6,12 +6,14 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-       case ADD_USER_DETAILS:
-           return {
-               ...state,
-               details: [...state.details, action.payload]
-           }
+        case UPDATED:
+            return {
+                ...state,
+                details: [...state.details, action.payload]
+            }
+
         default:
             return state;
     }
-}
+};
+

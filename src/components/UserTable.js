@@ -8,11 +8,10 @@ export default () => {
 
     return (
         <div>
-            {details.map((row, index) => (
-               <div key={index}>
-                   <Table bordered striped hover responsive variant="dark">
+            <Table bordered striped hover responsive variant="dark">
                     <thead>
                         <tr>
+                            <th>User Id</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Hobby</th>
@@ -20,18 +19,19 @@ export default () => {
                             <th>Age</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {details.map((row, index) => (
+                    <tbody key={index}>
                     <tr>
-                        <td>{row.fname}</td>
-                        <td>{row.lname}</td>
-                        <td>{row.hobby}</td>
-                        <td>{moment(row.dob).format('YYYY-MM-DD').toString()}</td>
-                        <td>{row.age}</td>
+                        <td>{row.data.userId}</td>
+                        <td>{row.data.fname}</td>
+                        <td>{row.data.lname}</td>
+                        <td>{row.data.hobby}</td>
+                        <td>{moment(row.data.dob).format('YYYY-MM-DD').toString()}</td>
+                        <td>{row.data.age}</td>
                      </tr>
                     </tbody>
-                </Table>
-               </div> 
-            ))}
+                     ))}
+             </Table> 
         </div>
     );
 }

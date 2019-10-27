@@ -1,8 +1,6 @@
-import { ADD_USER_DETAILS } from './type';
+import {  UPDATED } from './type';
 
-export const addDetails = (values) => {
-  return  {
-        type: ADD_USER_DETAILS,
-        payload: values
-      }
-    }
+export const update = data => ({
+    type: UPDATED,
+    payload: {data}
+});
