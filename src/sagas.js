@@ -1,23 +1,19 @@
 import { update } from './actions/userAction';
-import { put, take, fork, call, takeLatest } from 'redux-saga/effects';
+import { put, take, fork, takeLatest } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import {database} from './firebase';
 import axios from 'axios';
 
 
-export function send() {
-  axios.post('https://us-central1-joseph-enye.cloudfunctions.net/addmessage')
-   .then(res => {
-       // here will be code
-   })
-   .catch(error => {
-       console.log(error);
-   })
-}
-
  export function* handleAsyncRequest({ payload }) {
-  yield call (send, payload);   
-   yield put({type: 'UPDATED ASYNC', payload})
+   //console.log(payload);
+  yield  axios.post('https://us-central1-joseph-enye.cloudfunctions.net/addmessage', payload)
+  .then(res => {
+      // here will be code
+  })
+  .catch(error => {
+      console.log(error);
+  });   
  };
 
 
