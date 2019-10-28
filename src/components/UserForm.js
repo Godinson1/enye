@@ -5,7 +5,7 @@ import { DatePicker } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { handleRequest } from '../sagas';
+import { update } from '../actions/userAction';
 
 
 
@@ -25,7 +25,7 @@ class UserForm extends Component {
             dob: moment(this.state.dob).format('YYYY-MM-DD').toString(),
             age: this.state.age
           }
-        this.props.handleRequest(details);
+        this.props.update(details);
       }
     });
   };
@@ -97,7 +97,7 @@ class UserForm extends Component {
 }
 
 function mapDispatchToProps (dispatch) {
-  bindActionCreators({handleRequest: handleRequest}, dispatch);
+  bindActionCreators({update: update}, dispatch);
 }
 
 
@@ -105,4 +105,4 @@ const WrappedUserForm = Form.create({ name: 'user-form' })(UserForm);
 
 ReactDOM.render(<WrappedUserForm />, document.getElementById('root'));
 
-export default connect(mapDispatchToProps, { handleRequest })(WrappedUserForm)
+export default connect(mapDispatchToProps, { update })(WrappedUserForm)
