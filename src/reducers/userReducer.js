@@ -1,4 +1,4 @@
-import { UPDATED } from '../actions/type.js';
+import { NEW_UPDATED } from '../actions/type.js';
 
 const initialState = {
     details: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case UPDATED:
+        case NEW_UPDATED:
             return {
                 ...state,
                 details: [...state.details, action.payload]
