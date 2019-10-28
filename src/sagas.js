@@ -7,7 +7,7 @@ import axios from 'axios';
 
  export function* handleAsyncRequest({ payload }) {
    //console.log(payload);
-  yield  axios.post('https://us-central1-joseph-enye.cloudfunctions.net/addmessage', payload)
+  yield  axios.post('https://cors-anywhere.herokuapp.com/https://us-central1-feature-godwin-enye.cloudfunctions.net/addmessage', payload)
   .then(res => {
       // here will be code
   })
