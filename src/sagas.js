@@ -1,4 +1,4 @@
-import { update } from './actions/userAction';
+import { update_store } from './actions/userAction';
 import { put, take, fork, takeLatest } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import {database} from './firebase';
@@ -25,7 +25,7 @@ import axios from 'axios';
 function* startListener() {
   
   const channel = new eventChannel(emiter => {
-    const listener = database.ref("users").on("value", snapshot => {
+    const listener = database.ref("messages").on("value", snapshot => {
       emiter({ data: snapshot.val() || {} });
     });
 
@@ -38,7 +38,7 @@ function* startListener() {
 
   while (true) {
     const { data } = yield take(channel);
-    yield put(update(data));
+    yield put(update_store(data));
   }
 }
 
